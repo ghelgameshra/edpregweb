@@ -17,7 +17,7 @@ const authController = {
 
         const data = await res.json();
         localStorage.setItem('user', JSON.stringify(data));
-        goto('/dashboard');
+        goto('/app');
 
         return {
             code: 200
@@ -31,7 +31,7 @@ const authController = {
             return;
         }
 
-        let user = JSON.parse(userInfo);
+        const user = JSON.parse(userInfo);
 
         // --- Coba akses endpoint utama ---
         const res = await fetch(`${API_BASE}/auth/getviewlistmenu`, {
@@ -57,7 +57,7 @@ const authController = {
             if (reLogin.ok) {
                 const newData = await reLogin.json();
                 localStorage.setItem('user', JSON.stringify(newData));
-                goto('/dashboard');
+                goto('/app');
             } else {
                 console.error('Refresh token gagal, redirect ke login.');
                 localStorage.removeItem('userInfo');
@@ -66,7 +66,7 @@ const authController = {
 
             return;
         } else {
-            goto('/dashboard');
+            goto('/app');
         }
 
         return await res.json();

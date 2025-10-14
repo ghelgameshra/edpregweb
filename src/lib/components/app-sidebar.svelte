@@ -1,25 +1,21 @@
 <script lang="ts">
 	import CalendarIcon from '@lucide/svelte/icons/calendar';
 	import HouseIcon from '@lucide/svelte/icons/house';
-	import SearchIcon from '@lucide/svelte/icons/search';
-	import SettingsIcon from '@lucide/svelte/icons/settings';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import { ChevronDown, ClipboardList, FileText, List, Monitor } from '@lucide/svelte';
+	import { ChevronDown, ClipboardList, DatabaseIcon, FileText, List, Monitor } from '@lucide/svelte';
 	import { Collapsible } from 'bits-ui';
 
 	// Menu items.
 	const items = [
-		{title: 'Dashboard',url: '/dashboard',icon: HouseIcon},
-		{title: 'Complaint',url: '/complaint',icon: FileText},
-		{title: 'Calendar',url: '#',icon: CalendarIcon},
-		{title: 'Search',url: '#',icon: SearchIcon},
-		{title: 'Settings',url: '#',icon: SettingsIcon}
+		{title: 'Dashboard',url: '/app',icon: HouseIcon},
+		{title: 'Stores',url: '/app/stores',icon: DatabaseIcon},
+		{title: 'Schedule',url: '/app/schedule',icon: CalendarIcon},
 	];
 
     const subMenu = [
-    { title: 'List', url: '/dashboard/complaint/list', icon: List },
-    { title: 'Dispend', url: '/dashboard/complaint/dispend', icon: ClipboardList },
-    { title: 'Monitoring', url: '/dashboard/complaint/monitoring', icon: Monitor }
+    { title: 'List', url: '/app/complaint', icon: List },
+    { title: 'Dispend', url: '/app/complaint/dispend', icon: ClipboardList },
+    { title: 'Monitoring', url: '/app/complaint/monitoring', icon: Monitor }
   ];
 </script>
 
@@ -29,7 +25,6 @@
             <Sidebar.GroupLabel>EDP REG 4</Sidebar.GroupLabel>
 			<Sidebar.GroupContent>
                 <Sidebar.Menu>
-                    <Sidebar.Trigger/>
 					{#each items as item (item.title)}
 						<Sidebar.MenuItem>
 							<Sidebar.MenuButton>
@@ -43,19 +38,11 @@
 						</Sidebar.MenuItem>
 					{/each}
 				</Sidebar.Menu>
-			</Sidebar.GroupContent>
-		</Sidebar.Group>
-        
-        <Sidebar.Group>
-            <Sidebar.GroupContent>
                 <Sidebar.Menu>
-                    <Sidebar.MenuItem>
-                        
-                    </Sidebar.MenuItem>
                     <Collapsible.Root class="group/collapsible">
                         <!-- Trigger (menu utama Complaint) -->
                         <Collapsible.Trigger class="w-full">
-                            <Sidebar.MenuButton class="flex items-center gap-2 px-3 py-2">
+                            <Sidebar.MenuButton class="flex items-center gap-2 hover:cursor-pointer">
                                 <FileText class="size-4" />
                                 <span>Complaint</span>
                                 <ChevronDown class="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180"/>
@@ -68,7 +55,7 @@
                                 {#each subMenu as item (item.title)}
                                     <Sidebar.MenuSubItem>
                                         <Sidebar.MenuButton>
-                                            <a href={item.url} class="flex items-center gap-2 w-full pl-2 py-2">
+                                            <a href={item.url} class="flex items-center gap-2 w-full py-2">
                                                 <svelte:component this={item.icon} class="size-4" />
                                                 <span>{item.title}</span>
                                             </a>
@@ -79,7 +66,7 @@
                         </Collapsible.Content>
                     </Collapsible.Root>
                 </Sidebar.Menu>
-            </Sidebar.GroupContent>
-        </Sidebar.Group>
+			</Sidebar.GroupContent>
+		</Sidebar.Group>
 	</Sidebar.Content>
 </Sidebar.Root>
